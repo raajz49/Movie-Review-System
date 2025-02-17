@@ -1,10 +1,15 @@
 <template>
-  <nav class="bg-gray-900 text-white p-4 shadow-lg">
-    <div class="container mx-auto flex space-x-10 items-center">
+  <nav
+    class="fixed top-0 left-0 right-0 z-30 bg-gray-800 text-white p-4 shadow-lg"
+  >
+    <div class="container mx-auto flex justify-between items-center">
+      <!-- Left Side: Logo and Title -->
       <div class="flex items-center space-x-2">
         <LucideCamera class="w-6 h-6 text-yellow-400" />
         <h1 class="text-xl font-bold">Movies Ktm</h1>
       </div>
+      <Searchbar />
+      <!-- Right Side: Navigation Links -->
       <div class="flex space-x-6">
         <router-link to="/" class="hover:text-gray-300 transition"
           >Movies</router-link
@@ -22,6 +27,5 @@
 
 <script setup lang="ts">
 import { Clapperboard as LucideCamera } from "lucide-vue-next";
+import Searchbar from "./Searchbar.vue";
 </script>
-
-<style scoped></style>
