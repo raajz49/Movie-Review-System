@@ -81,6 +81,6 @@ const getGenresForMovie = (genreIds: number[]) => {
 .swiper-container {
   background-color: #1a1a1a; /* Dark background */
   padding: 20px;
-  border-radius: 10px;
+  border-radius: 12px;
 }
 </style>
