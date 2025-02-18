@@ -1,26 +1,26 @@
 <template>
-  <div
-    class="min-h-screen bg-gray-900 text-white flex items-center justify-center"
-  >
-    <Loader v-if="detailLoading" />
-    <div v-else-if="error" class="text-red-500">{{ error }}</div>
-    <MovieDetailCard v-else-if="movieDetail" :movie="movieDetail" />
+  <div class="container mx-auto p-6 mt-6">
+    <Loader v-if="movieDetailStore.loading" />
+    <div v-else-if="movieDetailStore.error" class="text-red-500">
+      {{ movieDetailStore.error }}
+    </div>
+    <MovieDetailCard v-else :movie="movieDetailStore.movieDetail" />
   </div>
 </template>
 
 <script setup lang="ts">
 import { onMounted } from "vue";
 import { useRoute } from "vue-router";
-import { useMovieStore } from "@/stores/movieStore";
+import { useMovieDetailStore } from "@/stores/movieDetailStore";
 import MovieDetailCard from "@/components/MovieDetailCard.vue";
 import Loader from "@/components/Loader.vue";
 
 const route = useRoute();
-const movieStore = useMovieStore();
+const movieId = Number(route.params.id);
 
-const { fetchMovieDetails, movieDetail, detailLoading, error } = movieStore;
+const movieDetailStore = useMovieDetailStore();
 
 onMounted(() => {
-  fetchMovieDetails(route.params.id as string);
+  movieDetailStore.fetchMovieDetail(movieId);
 });
 </script>

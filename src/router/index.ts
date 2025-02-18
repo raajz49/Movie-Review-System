@@ -1,6 +1,9 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import MovieDetail from "@/views/MovieDetail.vue";
+import TrailerPlayer from "@/components/TrailerPlayer.vue";
+import ActorView from "@/views/ActorView.vue";
+import ActorDetail from "@/views/ActorDetail.vue";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -11,11 +14,18 @@ const router = createRouter({
       component: HomeView,
     },
     {
+      path: "/actor",
+      name: "Actor",
+      component: ActorView,
+    },
+    { path: "/actor/:id", component: ActorDetail },
+    {
       path: "/movie/:id",
       name: "MovieDetail",
       component: MovieDetail,
       props: true, // Pass route params as props
     },
+    { path: "/trailer/:movieId", component: TrailerPlayer },
   ],
 });
 
