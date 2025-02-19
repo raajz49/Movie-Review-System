@@ -16,6 +16,9 @@
     </div>
 
     <!-- Latest Movies Section -->
+    <div v-if="movieStore.loading" class="loading-overlay">
+      <Loader />
+    </div>
     <SwiperCarousel
       sectionId="latest-movies"
       title="Latest Movies"
@@ -29,6 +32,9 @@
     </SwiperCarousel>
 
     <!-- Popular Movies Section -->
+    <div v-if="movieStore.loading" class="loading-overlay">
+      <Loader />
+    </div>
     <SwiperCarousel
       sectionId="popular-movies"
       title="Popular Movies"
@@ -42,6 +48,9 @@
     </SwiperCarousel>
 
     <!-- Viewer's Choice Section -->
+    <div v-if="movieStore.loading" class="loading-overlay">
+      <Loader />
+    </div>
     <SwiperCarousel
       sectionId="viewers-choice"
       title="Viewer's Choice"
