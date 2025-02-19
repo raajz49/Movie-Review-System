@@ -37,10 +37,12 @@
         <li
           v-for="(result, index) in results"
           :key="result.id"
-          class="px-4 py-2 hover:bg-gray-700 cursor-pointer"
-          @click="goToDetail(result)"
+          class="px-4 py-2 cursor-pointer"
         >
-          <div class="flex items-center space-x-3">
+          <div
+            class="flex items-center hover:bg-gray-700 space-x-3"
+            @click="goToDetail(result)"
+          >
             <!-- Movie Poster Thumbnail -->
             <img
               v-if="result.poster_path"
@@ -57,7 +59,10 @@
           </div>
           <!-- Render search results -->
           <!-- Show Trailer for First Search Result -->
-          <div v-if="index === 0" class="mt-3 cursor-pointer relative">
+          <div
+            v-if="index === 0"
+            class="mt-3 cursor-pointer hover:bg-gray-700 relative border-b border-gray-200"
+          >
             <div
               v-if="trailerMap[result.id]?.loading"
               class="text-gray-400 text-xs"

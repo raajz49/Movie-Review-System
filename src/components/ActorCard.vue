@@ -1,6 +1,9 @@
 <template>
   <div
-    class="bg-gray-800 rounded-lg p-4 shadow-md cursor-pointer hover:bg-gray-700 transition"
+    :class="[
+      'rounded-lg p-4 shadow-md cursor-pointer  transition',
+      props.simple ? 'bg-gray-800 hover:bg-gray-700' : 'hover:bg-gray-900', // Conditional background color
+    ]"
     @click="goToActorDetail"
   >
     <img
@@ -21,6 +24,10 @@ const props = defineProps({
   actor: {
     type: Object,
     required: true,
+  },
+  simple: {
+    type: Boolean,
+    default: false,
   },
 });
 const router = useRouter();

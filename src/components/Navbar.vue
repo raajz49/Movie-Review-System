@@ -4,14 +4,14 @@
   >
     <div class="container mx-auto flex justify-between items-center">
       <!-- Left Side: Logo and Title -->
-      <div class="flex items-center space-x-2">
+      <router-link to="/" class="flex items-center space-x-2 cursor-pointer">
         <LucideCamera class="w-6 h-6 text-yellow-400" />
         <h1 class="text-xl font-bold">Movies Ktm</h1>
-      </div>
+      </router-link>
       <Searchbar />
       <!-- Right Side: Navigation Links -->
       <div class="flex space-x-6">
-        <router-link to="/" class="hover:text-gray-300 transition"
+        <router-link to="/movie" class="hover:text-gray-300 transition"
           >Movies</router-link
         >
         <router-link to="/cart" class="hover:text-gray-300 transition"
