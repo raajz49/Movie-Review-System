@@ -54,40 +54,6 @@ export const useMovieStore = defineStore("movie", () => {
       loading.value = false;
     }
   };
-  // // Fetch details of a single movie
-  // const fetchMovieDetails = async (id: string) => {
-  //   detailLoading.value = true;
-  //   error.value = null;
-  //   const apiKey = "4fea2a6c366b2178d11ca9763eb39dac";
-
-  //   try {
-  //     const response = await axios.get(
-  //       `https://api.themoviedb.org/3/movie/${id}?api_key=${apiKey}&language=en-US`
-  //     );
-  //     movieDetail.value = response.data;
-  //   } catch (err) {
-  //     error.value = "Failed to fetch movie details.";
-  //     console.error("Error fetching movie details:", err);
-  //   } finally {
-  //     detailLoading.value = false;
-  //   }
-  // };
-  // const fetchLatestMovies = async () => {
-  //   loading.value = true;
-  //   error.value = "";
-  //   const apiKey = "4fea2a6c366b2178d11ca9763eb39dac";
-  //   const url = `https://api.themoviedb.org/3/movie/now_playing?api_key=${apiKey}&language=en-US&page=1`;
-
-  //   try {
-  //     const response = await axios.get(url);
-  //     latestMovies.value = response.data.results;
-  //   } catch (err) {
-  //     error.value = "Failed to load latest movies.";
-  //     console.error(err);
-  //   } finally {
-  //     loading.value = false;
-  //   }
-  // };
 
   return {
     movies,

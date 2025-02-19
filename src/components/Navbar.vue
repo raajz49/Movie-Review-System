@@ -14,7 +14,7 @@
         <router-link to="/movie" class="hover:text-gray-300 transition"
           >Movies</router-link
         >
-        <router-link to="/cart" class="hover:text-gray-300 transition"
+        <router-link to="/tvshow" class="hover:text-gray-300 transition"
           >TV</router-link
         >
         <router-link to="/actor" class="hover:text-gray-300 transition"

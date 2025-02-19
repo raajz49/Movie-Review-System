@@ -62,6 +62,34 @@
         <MovieCard :movie="item" :genres="getGenresForMovie(item.genre_ids)" />
       </template>
     </SwiperCarousel>
+    <SwiperCarousel
+      sectionId="popular-tv-shows"
+      title="Most Popular Series"
+      :items="tvShowStore.popularTvShows"
+      :loading="tvShowStore.loading"
+      :slidesPerView="5"
+    >
+      <template #default="{ item }">
+        <TvShowCard
+          :tvshow="item"
+          :genres="getGenresForMovie(item.genre_ids)"
+        />
+      </template>
+    </SwiperCarousel>
+    <SwiperCarousel
+      sectionId="latest-tv-shows"
+      title="Latest Series"
+      :items="tvShowStore.latestTvShows"
+      :loading="tvShowStore.loading"
+      :slidesPerView="5"
+    >
+      <template #default="{ item }">
+        <TvShowCard
+          :tvshow="item"
+          :genres="getGenresForMovie(item.genre_ids)"
+        />
+      </template>
+    </SwiperCarousel>
   </div>
 </template>
 
@@ -75,22 +103,24 @@ import MovieCard from "@/components/MovieCard.vue";
 import ActorCard from "@/components/ActorCard.vue";
 
 // Import Swiper components and CSS
-import { Swiper, SwiperSlide } from "swiper/vue";
 import "swiper/css";
 import "swiper/css/navigation";
-import { Navigation as SwiperNavigation } from "swiper/modules";
 import SwiperCarousel from "@/components/SwiperCarousel.vue";
+import { useTvShowStore } from "@/stores/tvShowStore";
+import TvShowCard from "@/components/TvShowCard.vue";
 
 const movieStore = useMovieStore();
 const genreStore = useGenreStore();
 const actorStore = useActorStore();
-
+const tvShowStore = useTvShowStore();
 onMounted(() => {
   movieStore.fetchMovies();
   movieStore.fetchLatestMovies();
   movieStore.fetchViewerChoiceMovies();
   genreStore.fetchGenres();
   actorStore.fetchActors();
+  tvShowStore.fetchPopularTvShows();
+  tvShowStore.fetchLatestTvShows();
 });
 
 const getGenresForMovie = (genreIds: number[]) => {
