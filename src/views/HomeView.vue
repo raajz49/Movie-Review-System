@@ -1,46 +1,58 @@
 <template>
   <div class="container mx-auto p-6 mt-6">
-    <div class="mb-8">
-      <h1 class="text-lg font-medium text-gray-300 mb-4">
-        Popular Celebrities
-      </h1>
-      <swiper
-        :modules="[Navigation]"
-        :slidesPerView="7"
-        :spaceBetween="20"
-        :navigation="true"
-        :breakpoints="{
-          320: { slidesPerView: 2 },
-          640: { slidesPerView: 3 },
-          768: { slidesPerView: 5 },
-          1024: { slidesPerView: 5 },
-        }"
-        class="popular-actors-swiper swiper-container"
+    <!-- Popular Celebrities Section -->
+    <div class="mb-8 relative swiper-section" id="popular-celebrities">
+      <SwiperCarousel
+        sectionId="popular-celebrities"
+        title="Popular Celebrities"
+        :items="actorStore.actors"
+        :loading="false"
+        :slidesPerView="5"
       >
-        <swiper-slide
-          v-for="actor in actorStore.actors"
-          :key="actor.id"
-          class="flex justify-center items-center"
-        >
-          <ActorCard :actor="actor" />
-        </swiper-slide>
-      </swiper>
+        <template #default="{ item }">
+          <ActorCard :actor="item" />
+        </template>
+      </SwiperCarousel>
     </div>
 
-    <h1 class="text-lg font-medium text-gray-300">Popular Movies</h1>
-    <Loader v-if="movieStore.loading" />
-
-    <div
-      v-else
-      class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2 gap-y-6"
+    <!-- Latest Movies Section -->
+    <SwiperCarousel
+      sectionId="latest-movies"
+      title="Latest Movies"
+      :items="movieStore.latestMovies"
+      :loading="movieStore.loading"
+      :slidesPerView="5"
     >
-      <MovieCard
-        v-for="movie in movieStore.movies"
-        :key="movie.id"
-        :movie="movie"
-        :genres="getGenresForMovie(movie.genre_ids)"
-      />
-    </div>
+      <template #default="{ item }">
+        <MovieCard :movie="item" :genres="getGenresForMovie(item.genre_ids)" />
+      </template>
+    </SwiperCarousel>
+
+    <!-- Popular Movies Section -->
+    <SwiperCarousel
+      sectionId="popular-movies"
+      title="Popular Movies"
+      :items="movieStore.movies"
+      :loading="movieStore.loading"
+      :slidesPerView="5"
+    >
+      <template #default="{ item }">
+        <MovieCard :movie="item" :genres="getGenresForMovie(item.genre_ids)" />
+      </template>
+    </SwiperCarousel>
+
+    <!-- Viewer's Choice Section -->
+    <SwiperCarousel
+      sectionId="viewers-choice"
+      title="Viewer's Choice"
+      :items="movieStore.viewersChoiceMovies"
+      :loading="movieStore.loading"
+      :slidesPerView="5"
+    >
+      <template #default="{ item }">
+        <MovieCard :movie="item" :genres="getGenresForMovie(item.genre_ids)" />
+      </template>
+    </SwiperCarousel>
   </div>
 </template>
 
@@ -57,7 +69,8 @@ import ActorCard from "@/components/ActorCard.vue";
 import { Swiper, SwiperSlide } from "swiper/vue";
 import "swiper/css";
 import "swiper/css/navigation";
-import { Navigation } from "swiper/modules";
+import { Navigation as SwiperNavigation } from "swiper/modules";
+import SwiperCarousel from "@/components/SwiperCarousel.vue";
 
 const movieStore = useMovieStore();
 const genreStore = useGenreStore();
@@ -65,6 +78,8 @@ const actorStore = useActorStore();
 
 onMounted(() => {
   movieStore.fetchMovies();
+  movieStore.fetchLatestMovies();
+  movieStore.fetchViewerChoiceMovies();
   genreStore.fetchGenres();
   actorStore.fetchActors();
 });
@@ -78,9 +93,72 @@ const getGenresForMovie = (genreIds: number[]) => {
 </script>
 
 <style scoped>
+/* Swiper styling for popular actors */
 .swiper-container {
-  background-color: #1a1a1a; /* Dark background */
+  background-color: #1a1a1a;
   padding: 20px;
   border-radius: 12px;
+}
+
+/* Carousel styling for movies */
+.movie-carousel {
+  background-color: #1a1a1a;
+  padding: 20px;
+  border-radius: 12px;
+}
+
+/* Custom navigation buttons */
+.custom-swiper-prev,
+.custom-swiper-next,
+.custom-carousel-prev,
+.custom-carousel-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.5);
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  z-index: 10;
+  font-size: 24px;
+  font-weight: bold;
+  color: white;
+  border-radius: 50%;
+}
+
+.custom-swiper-prev {
+  left: -10px;
+}
+
+.custom-swiper-next {
+  right: -10px;
+}
+
+.custom-carousel-prev {
+  left: 10px;
+}
+
+.custom-carousel-next {
+  right: 10px;
+}
+.swiper-section {
+  background-color: #1a1a1a;
+  padding: 20px;
+  border-radius: 12px;
+}
+
+.custom-swiper-prev,
+.custom-swiper-next {
+  transition: opacity 0.3s ease;
+}
+
+.custom-swiper-prev:hover,
+.custom-swiper-next:hover {
+  opacity: 0.8;
+}
+
+.swiper-button-disabled {
+  opacity: 0.35;
+  pointer-events: none;
 }
 </style>

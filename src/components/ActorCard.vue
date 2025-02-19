@@ -10,7 +10,10 @@
       v-if="actor.profile_path"
       :src="`https://image.tmdb.org/t/p/w185${actor.profile_path}`"
       :alt="actor.name"
-      class="w-24 h-24 object-cover rounded-full mx-auto"
+      :class="[
+        'w-40 h-40 object-cover rounded-full mx-auto',
+        props.simple ? 'w-24 h-24' : '',
+      ]"
     />
     <p class="text-white text-center mt-2 font-medium">{{ actor.name }}</p>
   </div>
